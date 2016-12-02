@@ -9,15 +9,19 @@ BEGIN {
 	genus = ""
 	species = ""
 	family = ""
+	lineage = ""
 	for (i = 1; i <= NF; i++) {
 		#print i ":" $i
 		if (!gi && $i ~ /^gi\|/) {gi = $i} #; print "gi: " gi}
 		if (!genus && $i ~ /^genus--/) {genus = $i} #; print "genus: " genus}
 		if (!species && $i ~ /^species--/) {species = $i} #; print "species: " species}
 		if (!family && $i ~ /^family--/) {family = $i} #; print "family: " family}
+		if (!lineage && $i ~ /^lineage--/) {lineage = $1}
 	}
 	sub("species--", "", species)
 	sub("genus--", "", genus)
 	sub("family--", "", family)
-	print read OFS gi OFS species OFS genus OFS family
+	sub("lineage--", "", lineage)
+	#print read OFS gi OFS species OFS genus OFS family
+	print family OFS genus OFS species OFS gi OFS lineage OFS read
 }
