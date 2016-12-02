@@ -1,0 +1,23 @@
+#!/usr/bin/awk -f
+BEGIN {
+	FS = "\t"
+	OFS = "\t"
+}
+{
+	read = $1
+	gi = ""
+	genus = ""
+	species = ""
+	family = ""
+	for (i = 1; i <= NF; i++) {
+		#print i ":" $i
+		if (!gi && $i ~ /^gi\|/) {gi = $i} #; print "gi: " gi}
+		if (!genus && $i ~ /^genus--/) {genus = $i} #; print "genus: " genus}
+		if (!species && $i ~ /^species--/) {species = $i} #; print "species: " species}
+		if (!family && $i ~ /^family--/) {family = $i} #; print "family: " family}
+	}
+	sub("species--", "", species)
+	sub("genus--", "", genus)
+	sub("family--", "", family)
+	print read OFS gi OFS species OFS genus OFS family
+}
