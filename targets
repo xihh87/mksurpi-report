@@ -1,0 +1,5 @@
+#!/bin/sh
+find -L data \
+	-name '*.sam' \
+| sed \
+	-e 's#^data#results#g'

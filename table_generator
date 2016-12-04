@@ -1,13 +1,31 @@
 #!/usr/bin/awk -f
 BEGIN{
 	OFS = "\t"
+	FILOGENY_FIELDS = 10
+	kind = 1
+	domain = 2
+	kingdom = 3
+	phylum = 4
+	class = 5
+	order = 6
+	family = 7
+	genus = 8
+	species = 9
+	strain = 10
+	gi = 11 # or nfields
 }
 {
 	nreads = $1
-	n = split($0, filogeny, ";")
 
-	for (i=2; i<= n; i--) {
-		printf(filogeny[i] OFS)
+	known_fields = split($0, filogeny, ";")
+
+	gi = filogeny[known_fields]
+	delete filogeny[known_fields] # last field is <gi>
+	known_fields -= 1
+
+	for (i=domain; i <= FILOGENY_FIELDS; i++) {
+		printf((filogeny[i] ? filogeny[i] : "*") OFS)
 	}
-	printf(nreads ORS)
+
+	printf(gi OFS nreads ORS)
 }
