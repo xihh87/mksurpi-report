@@ -1,0 +1,8 @@
+#!/usr/bin/awk -f
+BEGIN {
+	FS = "\t"
+	OFS = "\t"
+}
+{
+	print $3
+}

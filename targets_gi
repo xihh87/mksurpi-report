@@ -2,4 +2,5 @@
 find -L data \
 	-name '*.sam' \
 | sed \
-	-e 's#^data#results#g'
+	-e 's#^data#results#g' \
+	-e 's#\.sam$#.gi#g'
