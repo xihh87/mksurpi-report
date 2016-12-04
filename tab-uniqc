@@ -1,0 +1,21 @@
+#!/usr/bin/awk -f
+BEGIN {
+	OFS = "\t"
+}
+NR == 1 {
+	oldline = $0
+	count = 1
+	next
+}
+{
+	if( $0 == oldline ) {
+		count += 1
+	} else {
+		print count OFS oldline
+		count = 1
+	}
+	oldline = $0
+}
+END {
+	print count OFS oldline
+}

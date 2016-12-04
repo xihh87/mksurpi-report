@@ -12,20 +12,12 @@ BEGIN{
 	genus = 8
 	species = 9
 	strain = 10
-	gi = 11 # or nfields
 }
 {
-	nreads = $1
-
 	known_fields = split($0, filogeny, ";")
-
-	gi = filogeny[known_fields]
-	delete filogeny[known_fields] # last field is <gi>
-	known_fields -= 1
 
 	for (i=domain; i <= FILOGENY_FIELDS; i++) {
 		printf((filogeny[i] ? filogeny[i] : "*") OFS)
 	}
-
-	printf(gi OFS nreads ORS)
+	printf(ORS)
 }

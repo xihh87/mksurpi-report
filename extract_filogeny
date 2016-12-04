@@ -2,8 +2,7 @@
 BEGIN {
 	FS = "\t"
 	OFS = "\t"
-	gi = 3
 }
 {
-	print $NF ($NF ~ /;$/ ? $gi : ";" $gi)
+	print $NF
 }
